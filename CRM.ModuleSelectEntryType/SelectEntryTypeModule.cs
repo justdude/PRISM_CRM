@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 
-namespace CRM.ModuleEmplyee
+namespace CRM.ModuleSelectEntryType
 {
-	public class EmployeeModule : IModule
+	public class SelectEntryTypeModule : IModule
 	{
-		private const string ModuleName = "EmployeeModule";
+		private const string ModuleName = "SelectEntryType";
 
 		private IRegionManager modRegionManager;
 
-		public EmployeeModule(IRegionManager regionManager)
+		public SelectEntryTypeModule(IRegionManager regionManager)
 		{
 			modRegionManager = regionManager;
 		}
@@ -23,8 +23,7 @@ namespace CRM.ModuleEmplyee
 
 		public void Initialize()
 		{
-			//modRegionManager.Regions[ModuleName].Add(new View.EmployeeView());
-			//_regionManager.Regions["RoleSelection"].Add(new ModuleRoleSelection.View.RoleSelectionView(eventagg));
+			modRegionManager.Regions[ModuleName].Add(new View.SelectEntryTypeView());
 		}
 
 		#endregion

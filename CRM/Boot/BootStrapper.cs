@@ -36,6 +36,7 @@ namespace CRM.Boot
 		{
 			ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
 			moduleCatalog.AddModule(typeof(ModuleEmplyee.EmployeeModule));
+			moduleCatalog.AddModule(typeof(ModuleSelectEntryType.SelectEntryTypeModule));
 			base.InitializeModules();
 		}
 

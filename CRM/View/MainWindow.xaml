@@ -9,23 +9,28 @@
 			<StackPanel Width="100" Height="18"></StackPanel>
 		</DataTemplate>
 
-		<Style x:Key="TabItemStyleKey" TargetType="{x:Type TabItem}">
-			<Setter Property="Header" Value="{Binding Path=DataContext.ViewTile}"></Setter>
-			<Setter Property="HeaderTemplate" Value="{Binding Source={StaticResource crap}}"></Setter>
-		</Style>
-
 		<Style x:Key="TreeItemStyleKey" TargetType="{x:Type TreeViewItem}">
 			<Setter Property="Height" Value="Auto"></Setter>
 			<Setter Property="HorizontalAlignment" Value="Left"/>
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="BorderThickness" Value="0" />
 		</Style>
-
+		<Style x:Key="grdStyle" TargetType="{x:Type Grid}">
+			<Setter Property="Background" Value="SkyBlue"></Setter>
+		</Style>
 	</Window.Resources>
 
-	<Grid x:Name="LayoutRoot">
-		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Background="#FFD9E1EF" Height="100">
-			<ContentControl prism:RegionManager.RegionName="EmployeeModule"></ContentControl>
-		</StackPanel>
+	<Grid x:Name="LayoutRoot" Style="{StaticResource grdStyle}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="22"></RowDefinition>
+		</Grid.RowDefinitions>
+		<ContentControl Grid.Row="1"
+						prism:RegionManager.RegionName="SelectEntryType"></ContentControl>
+		<StatusBar Grid.Row="1">
+			<StatusBarItem>
+				<TextBlock Text="Info"></TextBlock>
+			</StatusBarItem>
+		</StatusBar>
 	</Grid>
 </Window>
