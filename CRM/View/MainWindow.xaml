@@ -8,13 +8,7 @@
 		<DataTemplate x:Key="crap">
 			<StackPanel Width="100" Height="18"></StackPanel>
 		</DataTemplate>
-
-		<Style x:Key="TreeItemStyleKey" TargetType="{x:Type TreeViewItem}">
-			<Setter Property="Height" Value="Auto"></Setter>
-			<Setter Property="HorizontalAlignment" Value="Left"/>
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="BorderThickness" Value="0" />
-		</Style>
+		
 		<Style x:Key="grdStyle" TargetType="{x:Type Grid}">
 			<Setter Property="Background" Value="SkyBlue"></Setter>
 		</Style>

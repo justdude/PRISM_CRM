@@ -8,13 +8,13 @@ using Microsoft.Practices.Prism.Regions;
 
 namespace CRM.ModuleSelectEntryType
 {
-	public class SelectEntryTypeModule : IModule
+	public class ModuleSelectEntryType: IModule
 	{
 		private const string ModuleName = "SelectEntryType";
 
 		private IRegionManager modRegionManager;
 
-		public SelectEntryTypeModule(IRegionManager regionManager)
+		public ModuleSelectEntryType(IRegionManager regionManager)
 		{
 			modRegionManager = regionManager;
 		}

@@ -6,6 +6,25 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
-    </Grid>
+		
+		<GroupBox Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+			<StackPanel>
+				<RadioButton >Employers</RadioButton>
+				<RadioButton>Countries</RadioButton>
+			</StackPanel>
+		</GroupBox>
+
+		<StackPanel Grid.Row="1" 
+					Orientation="Horizontal"
+					HorizontalAlignment="Right" VerticalAlignment="Bottom">
+			<Button
+				Width="36"
+				Command="{Binding SelectActionCommand}">Select</Button>
+			<Button
+				Width="36"
+				Command="{Binding ExitCommand}">Exit</Button>
+		</StackPanel>
+		
+
+	</Grid>
 </UserControl>

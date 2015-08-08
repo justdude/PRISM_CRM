@@ -103,6 +103,9 @@
     </ApplicationDefinition>
     <Compile Include="Boot\App.cs" />
     <Compile Include="Boot\BootStrapper.cs" />
+    <Compile Include="View\EmployeeShell.xaml.cs">
+      <DependentUpon>EmployeeShell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\EmployeeShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
