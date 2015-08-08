@@ -1,0 +1,31 @@
+﻿<Window x:Class="CRM.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://www.codeplex.com/prism"
+        Title="MainWindow" Height="350" Width="525">
+	<Window.Resources>
+
+		<DataTemplate x:Key="crap">
+			<StackPanel Width="100" Height="18"></StackPanel>
+		</DataTemplate>
+
+		<Style x:Key="TabItemStyleKey" TargetType="{x:Type TabItem}">
+			<Setter Property="Header" Value="{Binding Path=DataContext.ViewTile}"></Setter>
+			<Setter Property="HeaderTemplate" Value="{Binding Source={StaticResource crap}}"></Setter>
+		</Style>
+
+		<Style x:Key="TreeItemStyleKey" TargetType="{x:Type TreeViewItem}">
+			<Setter Property="Height" Value="Auto"></Setter>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="VerticalAlignment" Value="Top" />
+			<Setter Property="BorderThickness" Value="0" />
+		</Style>
+
+	</Window.Resources>
+
+	<Grid x:Name="LayoutRoot">
+		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Background="#FFD9E1EF" Height="100">
+			<ContentControl prism:RegionManager.RegionName="EmployeeModule"></ContentControl>
+		</StackPanel>
+	</Grid>
+</Window>
