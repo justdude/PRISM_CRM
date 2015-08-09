@@ -18,7 +18,7 @@ namespace CRM.Helper
 			EmployeeShell wind = new EmployeeShell();
 			wind.Owner = App.Current.MainWindow;
 			wind.Owner.Hide();
-			wind.Show();
+			wind.ShowDialog();
 			wind.Owner.Show();
 		}
 

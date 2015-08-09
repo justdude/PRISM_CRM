@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:prism="http://www.codeplex.com/prism"
         Title="Employers" Height="300" Width="300">
-	<Grid x:Name="LayoutRoot" Style="{StaticResource grdStyle}">
+	<Grid x:Name="LayoutRoot" >
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"></RowDefinition>
 			<RowDefinition Height="22"></RowDefinition>
