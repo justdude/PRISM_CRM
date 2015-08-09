@@ -103,11 +103,12 @@
     </ApplicationDefinition>
     <Compile Include="Boot\App.cs" />
     <Compile Include="Boot\BootStrapper.cs" />
+    <Compile Include="Helper\CWindowsHelper.cs" />
     <Compile Include="View\EmployeeShell.xaml.cs">
       <DependentUpon>EmployeeShell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="View\Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -146,7 +147,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainWindow.xaml">
+    <Page Include="View\Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -3,30 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CRM.Common.Interfaces;
+using CRM.ModuleSelectEntryType.Enums;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.ServiceLocation;
 
 namespace CRM.ModuleSelectEntryType.ViewModel
 {
-	public enum ListTarget
-	{
-		Employers,
-		Countryes
-	}
-
 	public class SelectEntryViewModel : BindableBase
 	{
 		private ListTarget mvSelectedType;
-		private readonly DelegateCommand mvSelectClick;
+		private readonly DelegateCommand mvSelectActionCommand;
+		private readonly DelegateCommand mvExitCommand;
 
 		public SelectEntryViewModel()
 		{
-			mvSelectClick = new DelegateCommand(OnTypeSelected);
-
-			ItemsTypes = new List<string>();
-
-			ItemsTypes.Add(ListTarget.Countryes.ToString());
-			ItemsTypes.Add(ListTarget.Employers.ToString());
+			mvSelectActionCommand = new DelegateCommand(OnTypeSelected);
+			mvExitCommand = new DelegateCommand(OnCloseClick);
 		}
 
 		public ListTarget SelectedType
@@ -46,23 +40,43 @@ namespace CRM.ModuleSelectEntryType.ViewModel
 			}
 		}
 
-		public List<string> ItemsTypes
-		{
-			get;
-			set;
-		}
-
-		public DelegateCommand SelectClick
+		public DelegateCommand SelectActionCommand
 		{
 			get
 			{
-				return mvSelectClick;
+				return mvSelectActionCommand;
+			}
+		}
+
+		public DelegateCommand ExitCommand
+		{
+			get
+			{
+				return mvExitCommand;
 			}
 		}
 
 		private void OnTypeSelected()
 		{
-			throw new NotImplementedException();
+			var windowsHelper = ServiceLocator.Current.GetInstance<IWindowsHelper>();
+
+			switch (SelectedType)
+			{
+				case ListTarget.Employers:
+					windowsHelper.ShowEmployeWindow();
+					break;
+				case ListTarget.Countryes:
+					windowsHelper.ShowCountryWindow();
+					break;
+				default:
+					break;
+			}
+		}
+
+		private void OnCloseClick()
+		{
+			var windowsHelper = ServiceLocator.Current.GetInstance<IWindowsHelper>();
+			windowsHelper.CloseApp();
 		}
 
 	}//class

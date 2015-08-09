@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Prism.Modularity;
+using CRM.Common.Interfaces;
+using CRM.Helper;
 
 namespace CRM.Boot
 {
@@ -14,7 +16,7 @@ namespace CRM.Boot
 	{
 		protected override System.Windows.DependencyObject CreateShell()
 		{
-			return this.Container.Resolve<MainWindow>();
+			return this.Container.Resolve<Shell>();
 		}
 
 		protected override void ConfigureContainer()
@@ -37,6 +39,9 @@ namespace CRM.Boot
 			ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
 			moduleCatalog.AddModule(typeof(ModuleEmplyee.EmployeeModule));
 			moduleCatalog.AddModule(typeof(ModuleSelectEntryType.ModuleSelectEntryType));
+
+			this.Container.RegisterType(typeof(IWindowsHelper), typeof(CWindowsHelper));
+
 			base.InitializeModules();
 		}
 
@@ -44,7 +49,7 @@ namespace CRM.Boot
 		{
 			base.InitializeShell();
 
-			App.Current.MainWindow = (MainWindow)Shell;
+			App.Current.MainWindow = (Shell)Shell;
 			App.Current.MainWindow.Show();
 		}
 	}

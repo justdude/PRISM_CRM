@@ -1,4 +1,4 @@
-﻿<Window x:Class="CRM.MainWindow"
+﻿<Window x:Class="CRM.Shell"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://www.codeplex.com/prism"
@@ -19,7 +19,7 @@
 			<RowDefinition Height="*"></RowDefinition>
 			<RowDefinition Height="22"></RowDefinition>
 		</Grid.RowDefinitions>
-		<ContentControl Grid.Row="1"
+		<ContentControl Grid.Row="0"
 						prism:RegionManager.RegionName="SelectEntryType"></ContentControl>
 		<StatusBar Grid.Row="1">
 			<StatusBarItem>

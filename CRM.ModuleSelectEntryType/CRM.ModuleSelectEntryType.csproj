@@ -90,6 +90,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\EnumConverter.cs" />
+    <Compile Include="Enums\ListTarget.cs" />
     <Compile Include="SelectEntryTypeModule.cs" />
     <Compile Include="ViewModel\SelectEntryViewModel.cs" />
     <Compile Include="View\SelectEntryTypeView.xaml.cs">
