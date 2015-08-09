@@ -23,6 +23,7 @@ namespace CRM.ModuleSelectEntryType
 
 		public void Initialize()
 		{
+			//this.modRegionManager.RegisterViewWithRegion(ModuleName, typeof(View.SelectEntryTypeView));
 			modRegionManager.Regions[ModuleName].Add(new View.SelectEntryTypeView());
 		}
 

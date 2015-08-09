@@ -152,6 +152,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CRM.Common\CRM.Common.csproj">
+      <Project>{96d68cd1-c389-468e-a68d-34a428aae9d8}</Project>
+      <Name>CRM.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CRM.Emplyee\CRM.ModuleEmployee.csproj">
       <Project>{ee3156be-0dd5-4818-b2c1-a87b75c3fe5b}</Project>
       <Name>CRM.ModuleEmployee</Name>

@@ -14,7 +14,7 @@
 		</Style>
 	</Window.Resources>
 
-	<Grid x:Name="LayoutRoot" Style="{StaticResource grdStyle}">
+	<Grid x:Name="LayoutRoot">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"></RowDefinition>
 			<RowDefinition Height="22"></RowDefinition>

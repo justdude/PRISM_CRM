@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CRM.ModuleSelectEntryType.ViewModel;
 
 namespace CRM.ModuleSelectEntryType.View
 {
@@ -23,6 +24,12 @@ namespace CRM.ModuleSelectEntryType.View
 		public SelectEntryTypeView()
 		{
 			InitializeComponent();
+			this.Loaded += SelectEntryTypeView_Loaded;
+		}
+
+		void SelectEntryTypeView_Loaded(object sender, RoutedEventArgs e)
+		{
+			DataContext = new SelectEntryViewModel();
 		}
 	}
 }
