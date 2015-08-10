@@ -161,6 +161,10 @@
       <Project>{ee3156be-0dd5-4818-b2c1-a87b75c3fe5b}</Project>
       <Name>CRM.ModuleEmployee</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CRM.Events\CRM.Events.csproj">
+      <Project>{5cf0fed2-d88f-4112-9e06-2de41534110e}</Project>
+      <Name>CRM.Events</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CRM.ModuleSelectEntryType\CRM.ModuleSelectEntryType.csproj">
       <Project>{cb556eda-9f07-457f-bf1d-3d08b2a0d7b6}</Project>
       <Name>CRM.ModuleSelectEntryType</Name>

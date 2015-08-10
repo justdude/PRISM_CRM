@@ -146,6 +146,10 @@
       <Project>{d33bb5d9-c28c-48bc-b0ed-509639141a02}</Project>
       <Name>CRM.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CRM.Events\CRM.Events.csproj">
+      <Project>{5cf0fed2-d88f-4112-9e06-2de41534110e}</Project>
+      <Name>CRM.Events</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

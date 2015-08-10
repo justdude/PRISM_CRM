@@ -52,8 +52,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Country.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="modSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -84,6 +86,10 @@
     <ProjectReference Include="..\CRM.Common\CRM.Common.csproj">
       <Project>{96d68cd1-c389-468e-a68d-34a428aae9d8}</Project>
       <Name>CRM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CRM.Database\CRM.Database.csproj">
+      <Project>{89be3756-e0f0-48bd-aaba-ddd64484267c}</Project>
+      <Name>CRM.Database</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

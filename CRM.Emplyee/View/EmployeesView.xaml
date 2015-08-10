@@ -32,7 +32,17 @@
 				 Margin="4"
 				 BorderBrush="Blue"
 				 BorderThickness="1">
-			<ListBox DataContext="{Binding Employers}" SelectedItem="{Binding SelectedItem}"></ListBox>
+			<ListBox ItemsSource="{Binding Employers}" 
+					 SelectedItem="{Binding SelectedItem}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Grid>
+							<TextBlock Text="{Binding Name}"></TextBlock>
+						</Grid>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+				
+			</ListBox>
 		</Border>
 
 		<Grid  Grid.Row="0"
@@ -65,7 +75,7 @@
 						Text="Country"></TextBlock>
 
 			<TextBox  Grid.Row="0" Grid.Column="1"
-						IsEnabled="{Binding IsEnabled}"
+						IsEnabled="{Binding IsSelected}"
 						Style="{StaticResource baseStyle}"
 						common:ValidationBehavior.HasError="{Binding IsHasError}"
 						Validation.ErrorTemplate="{StaticResource tbError}">
@@ -79,7 +89,7 @@
 			</TextBox>
 
 			<DatePicker  Grid.Row="1" Grid.Column="1" 
-						IsEnabled="{Binding IsEnabled}"
+						IsEnabled="{Binding IsSelected}"
 						 common:ValidationBehavior.HasError="{Binding IsHasError}"
 						Style="{StaticResource baseStyle}">
 				<DatePicker.SelectedDate>
@@ -92,7 +102,7 @@
 			</DatePicker>
 
 			<TextBox  Grid.Row="2" Grid.Column="1" 
-						IsEnabled="{Binding IsEnabled}"
+						IsEnabled="{Binding IsSelected}"
 							common:ValidationBehavior.HasError="{Binding IsHasError}"
 						Style="{StaticResource baseStyle}">
 				<TextBox.Text>
@@ -105,11 +115,18 @@
 			</TextBox>
 
 			<ComboBox  Grid.Row="3" Grid.Column="1" 
-						IsEnabled="{Binding IsEnabled}"
+						IsEnabled="{Binding IsSelected}"
 						Style="{StaticResource baseStyle}"
 						 common:ValidationBehavior.HasError="{Binding IsHasError}"
-					    ItemsSource="{Binding Countryes}"
+					    ItemsSource="{Binding Countries}"
 						Text="{Binding SelectedItem.Country}" IsReadOnly="True">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<Grid>
+							<TextBlock Text="{Binding Name}"></TextBlock>
+						</Grid>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
 				
 			</ComboBox>
 

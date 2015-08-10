@@ -8,6 +8,7 @@ using CRM.Common.Interfaces;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.ViewModel;
+using CRM.Events;
 
 namespace CRM.ModuleEmplyee.ViewModel
 {
@@ -20,7 +21,6 @@ namespace CRM.ModuleEmplyee.ViewModel
 		private readonly DelegateCommand mvRefreshCommand;
 		private readonly DelegateCommand mvCloseCommand;
 		private bool mvIsBlocked;
-		private string mvName;
 		private bool mvIsHasError;
 
 		public EmployesItemsViewModel()
@@ -32,9 +32,23 @@ namespace CRM.ModuleEmplyee.ViewModel
 			mvSaveCommand = new DelegateCommand(OnSaveSelected, CanSave);
 			mvRefreshCommand = new DelegateCommand(OnRefresh, CanRefresh);
 			mvCloseCommand = new DelegateCommand(OnClose);
+			
+			LoadData();
+		}
+
+		private void LoadData()
+		{
+			IsEnabled = false;
+
+
+			Countries = new ObservableCollection<Data.Country>(CRM.Data.Engine.Instance.LoadCountries());
+			Employers = new ObservableCollection<EmployeeViewModel>(CRM.Data.Engine.Instance.LoadEmployes().Select(p => new EmployeeViewModel(p)));
+
+			IsEnabled = true;
 		}
 
 		public ObservableCollection<EmployeeViewModel> Employers { get; set; }
+		public ObservableCollection<Data.Country> Countries { get; set; }
 
 		public EmployeeViewModel SelectedItem
 		{
@@ -48,7 +62,9 @@ namespace CRM.ModuleEmplyee.ViewModel
 					return;
 
 				mvSelectedItem = value;
-				IsEnabled = mvSelectedItem == null;
+				//IsEnabled = mvSelectedItem == null;
+
+				RaiseRefresh();
 
 				this.OnPropertyChanged(() => this.SelectedItem);
 			}
@@ -96,6 +112,21 @@ namespace CRM.ModuleEmplyee.ViewModel
 
 				this.OnPropertyChanged(() => this.IsHasError);
 			}
+		}
+
+		public bool IsSelected
+		{
+			get
+			{
+				return SelectedItem != null && SelectedItem.Current != null;
+			}
+		}
+
+		private void RaisePropertyesChanged()
+		{
+			this.OnPropertyChanged(() => this.IsHasError);
+			this.OnPropertyChanged(() => this.IsSelected);
+			this.OnPropertyChanged(() => this.IsEnabled);
 		}
 
 		#region Члены IDataButtons
@@ -155,51 +186,76 @@ namespace CRM.ModuleEmplyee.ViewModel
 
 		private bool CanRefresh()
 		{
-			return !IsEnabled && !IsChanged;
+			return IsEnabled;
 		}
 
 		private bool CanSave()
 		{
-			return !IsEnabled && IsChanged && !IsHasError;
+			return IsEnabled && !IsHasError && IsSelected;
 		}
 
 		private bool CanDelete()
 		{
-			return !IsEnabled && !IsChanged;
+			return IsEnabled && IsSelected;
 		}
 
 		private bool CanAdd()
 		{
-			return !IsEnabled && !IsChanged;
+			return IsEnabled;
 		}
 
 		private void OnClose()
 		{
-			throw new NotImplementedException();
+			var mess = CEventSystem.Current.GetEvent<Events.CloseWindowEvent>();
 		}
 
 		private void OnRefresh()
 		{
-			throw new NotImplementedException();
+			SelectedItem = null;
+			RaiseRefresh();
+
+			LoadData();
+
+			RaiseRefresh();
+		}
+
+		private void RaiseRefresh()
+		{
+			RaisePropertyesChanged();
+			RefreshCommands();
 		}
 
 		private void OnSaveSelected()
 		{
-			throw new NotImplementedException();
+			SelectedItem.Current.Save();
+			SelectedItem = null;
+
+			RaiseRefresh();
 		}
 
 		private void OnDeleteSelected()
 		{
-			throw new NotImplementedException();
+			SelectedItem.Current.Status = Status.Deleted;
+			SelectedItem.Current.Save();
+
+			this.Employers.Remove(SelectedItem);
+			SelectedItem = null;
+			
+			RaiseRefresh();
 		}
 
 		private void OnAdd()
 		{
-			IsEnabled = true;
-
 			SelectedItem = new EmployeeViewModel(Data.Employee.CreateRand());
+
+			SelectedItem.Current.Status = Status.Added;
+
+			this.Employers.Add(SelectedItem);
+
+			RaiseRefresh();
 		}
 
 		#endregion
+
 	}
 }

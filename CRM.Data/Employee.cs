@@ -26,5 +26,16 @@ namespace CRM.Data
 			return empl;
 		}
 
+
+		public void Save()
+		{
+			
+		}
+
+		public Status Status
+		{
+			get;
+			set;
+		}
 	}
 }
