@@ -91,7 +91,8 @@
 			<DatePicker  Grid.Row="1" Grid.Column="1" 
 						IsEnabled="{Binding IsSelected}"
 						 common:ValidationBehavior.HasError="{Binding IsHasError}"
-						Style="{StaticResource baseStyle}">
+						Style="{StaticResource baseStyle}"
+						Validation.ErrorTemplate="{StaticResource tbError}">
 				<DatePicker.SelectedDate>
 					<Binding Path="SelectedItem.BirthDate" UpdateSourceTrigger="PropertyChanged">
 							<Binding.ValidationRules>
@@ -104,6 +105,7 @@
 			<TextBox  Grid.Row="2" Grid.Column="1" 
 						IsEnabled="{Binding IsSelected}"
 							common:ValidationBehavior.HasError="{Binding IsHasError}"
+						Validation.ErrorTemplate="{StaticResource tbError}"
 						Style="{StaticResource baseStyle}">
 				<TextBox.Text>
 					<Binding Path="SelectedItem.Salary" UpdateSourceTrigger="PropertyChanged">
@@ -117,7 +119,6 @@
 			<ComboBox  Grid.Row="3" Grid.Column="1" 
 						IsEnabled="{Binding IsSelected}"
 						Style="{StaticResource baseStyle}"
-						 common:ValidationBehavior.HasError="{Binding IsHasError}"
 					    ItemsSource="{Binding Countries}"
 						Text="{Binding SelectedItem.Country}" IsReadOnly="True">
 				<ComboBox.ItemTemplate>

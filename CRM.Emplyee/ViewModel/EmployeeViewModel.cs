@@ -107,5 +107,14 @@ namespace CRM.ModuleEmplyee.ViewModel
 				this.OnPropertyChanged(() => this.Salary);
 			}
 		}
+
+		public void RaisePropertyesChanged()
+		{
+			this.OnPropertyChanged(() => this.Country);
+			this.OnPropertyChanged(() => this.Name);
+			this.OnPropertyChanged(() => this.IsChanged);
+			this.OnPropertyChanged(() => this.BirthDate);
+			this.OnPropertyChanged(() => this.Salary);
+		}
 	}
 }

@@ -13,12 +13,21 @@ namespace CRM.Common.Validation
 
 		public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
 		{
+			if (value == null)
+				return new ValidationResult(false, "Empty datetime");
+
 			DateTime orderDate = (DateTime)value;
 
-			if (orderDate < DateTime.Now)
+			if (orderDate >= DateTime.Now)
 				return new ValidationResult(false, "Please, enter date before Now()");
 
-			return new ValidationResult(orderDate < CurrentDate, "No less than 01/01/1985");
+			bool res = orderDate < CurrentDate;
+			string strRes = "No less than 01/01/1985";
+
+			if (!res)
+				strRes = string.Empty;
+
+			return new ValidationResult(res , strRes);
 		}
 	}
 }

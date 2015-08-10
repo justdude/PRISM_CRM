@@ -17,6 +17,6 @@ namespace CRM.Common.Interfaces
 	public interface IObjectBase
 	{
 		Status Status { get; set; }
-		void Save();
+		bool Save();
 	}
 }

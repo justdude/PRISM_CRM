@@ -62,7 +62,8 @@ namespace CRM.Database
 
 			try
 			{
-				modConnection.Open();
+				if (modConnection.State == System.Data.ConnectionState.Closed)
+					modConnection.Open();
 				cmd = new SqlCommand(command, modConnection);
 
 				res = cmd.ExecuteNonQuery();

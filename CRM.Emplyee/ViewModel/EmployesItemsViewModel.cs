@@ -9,6 +9,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.ViewModel;
 using CRM.Events;
+using CRM.Data;
 
 namespace CRM.ModuleEmplyee.ViewModel
 {
@@ -32,7 +33,7 @@ namespace CRM.ModuleEmplyee.ViewModel
 			mvSaveCommand = new DelegateCommand(OnSaveSelected, CanSave);
 			mvRefreshCommand = new DelegateCommand(OnRefresh, CanRefresh);
 			mvCloseCommand = new DelegateCommand(OnClose);
-			
+
 			LoadData();
 		}
 
@@ -40,9 +41,30 @@ namespace CRM.ModuleEmplyee.ViewModel
 		{
 			IsEnabled = false;
 
+			if (Countries == null)
+			{
+				Countries = new ObservableCollection<Country>();
+			}
+			if (Employers == null)
+			{
+				Employers = new ObservableCollection<EmployeeViewModel>();
+			}
+			
+			Employers.Clear();
+			Countries.Clear();
 
-			Countries = new ObservableCollection<Data.Country>(CRM.Data.Engine.Instance.LoadCountries());
-			Employers = new ObservableCollection<EmployeeViewModel>(CRM.Data.Engine.Instance.LoadEmployes().Select(p => new EmployeeViewModel(p)));
+			var countries = new ObservableCollection<Data.Country>(CRM.Data.Engine.Instance.LoadCountries());
+			var employers = Engine.Instance.LoadEmployes().Select(p => new EmployeeViewModel(p));
+
+			foreach (var item in countries)
+			{
+				Countries.Add(item);
+			}
+
+			foreach (var item in employers)
+			{
+				Employers.Add(item);
+			}
 
 			IsEnabled = true;
 		}
@@ -124,6 +146,9 @@ namespace CRM.ModuleEmplyee.ViewModel
 
 		private void RaisePropertyesChanged()
 		{
+			if (IsSelected)
+				SelectedItem.RaisePropertyesChanged();
+
 			this.OnPropertyChanged(() => this.IsHasError);
 			this.OnPropertyChanged(() => this.IsSelected);
 			this.OnPropertyChanged(() => this.IsEnabled);
@@ -227,6 +252,11 @@ namespace CRM.ModuleEmplyee.ViewModel
 
 		private void OnSaveSelected()
 		{
+			if (SelectedItem.Current.Status == Status.Normal)
+			{
+				SelectedItem.Current.Status = Status.Updated;
+			}
+
 			SelectedItem.Current.Save();
 			SelectedItem = null;
 
@@ -240,13 +270,13 @@ namespace CRM.ModuleEmplyee.ViewModel
 
 			this.Employers.Remove(SelectedItem);
 			SelectedItem = null;
-			
+
 			RaiseRefresh();
 		}
 
 		private void OnAdd()
 		{
-			SelectedItem = new EmployeeViewModel(Data.Employee.CreateRand());
+			SelectedItem = new EmployeeViewModel(new Data.Employee());
 
 			SelectedItem.Current.Status = Status.Added;
 

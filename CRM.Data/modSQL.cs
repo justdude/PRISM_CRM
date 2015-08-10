@@ -19,13 +19,13 @@ namespace CRM.Database
 		public static string InsertCountry(Country c)
 		{
 			string query = @"INSERT INTO Countryes(Id,CountryName) VALUES('{0}', '{1}');";
-			return string.Format(query, c.CountryID, c.Name);
+			return string.Format(query, c.Id, c.Name);
 		}
 
 		public static string UpdateCountry(Country c)
 		{
 			string query = @"UPDATE Countryes SET City='{0}' WHERE Id='{1}';";
-			return string.Format(query, c.Name, c.CountryID);
+			return string.Format(query, c.Name, c.Id);
 		}
 
 		public static string DeleteCountry(string id)
@@ -43,19 +43,20 @@ namespace CRM.Database
 			return @"select * from Employes";
 		}
 
-		public static string InsertCountry(Employee empl)
+		public static string InsertEmployes(Employee empl)
 		{
-			string query = @"INSERT INTO Employes(Id,EmployeName,BirthDate,Salary,CountryID) VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}');";
-			return string.Format(query, empl.PersonID, empl.Name, empl.BirthDate, empl.Salary, empl.CountryID);
+			string query = @"INSERT INTO Employes(Id,EmployeName,BirthDate,Salary,CountryID) VALUES('{0}', '{1}', '{2}', '{3}', '{4}');";
+			return string.Format(query, empl.Id, empl.Name, empl.BirthDate, empl.Salary, empl.CountryID);
 		}
 
-		public static string UpdateCountry(Employee empl)
+		public static string UpdateEmployes(Employee empl)
 		{
-			string query = @"UPDATE Employes SET City='{0}' WHERE Id='{1}';";
-			return string.Format(query, c.Name, c.CountryID);
+			string query = @"UPDATE Employes SET EmployeName='{0}',BirthDate='{1}',Salary='{2}',CountryID='{3}'" 
+				+ " WHERE Id='{4}';";
+			return string.Format(query, empl.Name, empl.BirthDate, empl.Salary, empl.CountryID, empl.Id);
 		}
 
-		public static string DeleteCountry(string id)
+		public static string DeleteEmployes(string id)
 		{
 			string query = string.Format(@"DELETE from Employes WHERE Id='{0}';", id);
 			return query;

@@ -28,16 +28,21 @@ namespace CRM.Data
 				while (reader.Read())
 				{
 					employee = new Employee();
-					employee.PersonID = reader.GetString(0);
+					employee.Id = reader.GetString(0);
 					employee.Name = reader.GetString(1);
 					employee.BirthDate = reader.GetDateTime(2);
-					employee.Salary = reader.GetFloat(3);
+					employee.Salary = (float)reader.GetDouble(3);
 					employee.CountryID = reader.GetString(4);
+					employee.Status = Common.Interfaces.Status.Normal;
 					list.Add(employee);
 				}
+				reader.Close();
 			}
-			catch
-			{ }
+			catch(Exception ex)
+			{
+				if (reader != null)
+					reader.Close();
+			}
 
 			#region can remove
 			if (list.Count == 0)
@@ -70,13 +75,18 @@ namespace CRM.Data
 				while(reader.Read())
 				{
 					country = new Country();
-					country.CountryID = reader.GetString(0);
+					country.Id = reader.GetString(0);
 					country.Name = reader.GetString(1);
+					country.Status = Common.Interfaces.Status.Normal;
 					list.Add(country);
 				}
+				reader.Close();
 			}
 			catch
-			{ }
+			{ 
+				if (reader != null)
+					reader.Close();
+			}
 
 			#region can remove
 			if (list.Count == 0)
@@ -84,7 +94,7 @@ namespace CRM.Data
 
 				for (int i = 0; i < cc.Length; i++)
 				{
-					list.Add(new Country() { CountryID = i.ToString(), Name = cc[i] });
+					list.Add(new Country() { Id = i.ToString(), Name = cc[i] });
 				}
 			}
 			#endregion

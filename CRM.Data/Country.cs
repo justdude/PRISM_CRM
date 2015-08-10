@@ -9,24 +9,18 @@ namespace CRM.Data
 {
 	public class Country : IObjectBase
 	{
-		public string CountryID { get; set; }
+		public string Id { get; set; }
 		public string Name { get; set; }
 
 		public Status Status
 		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
+			get;
+			set;
 		}
 
-		public void Save()
+		public bool Save()
 		{
-			throw new NotImplementedException();
+			return true;
 		}
 	}
 }
