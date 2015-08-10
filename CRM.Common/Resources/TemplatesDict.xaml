@@ -20,11 +20,11 @@
 					<ColumnDefinition></ColumnDefinition>
 					<ColumnDefinition></ColumnDefinition>
 				</Grid.ColumnDefinitions>
-				<Button Grid.Column="0" Style="{StaticResource btnStyle}" Command="{Binding Refresh}">Refresh</Button>
-				<Button Grid.Column="1" Style="{StaticResource btnStyle}" Command="{Binding New}">New</Button>
-				<Button Grid.Column="2" Style="{StaticResource btnStyle}" Command="{Binding Delete}">Delete</Button>
-				<Button Grid.Column="3" Style="{StaticResource btnStyle}" Command="{Binding Save}">Save</Button>
-				<Button Grid.Column="4" Style="{StaticResource btnStyle}" Command="{Binding Close}">Close</Button>
+				<Button Grid.Column="0" Style="{StaticResource btnStyle}" Command="{Binding RefreshCommand}">Refresh</Button>
+				<Button Grid.Column="1" Style="{StaticResource btnStyle}" Command="{Binding AddCommand}">New</Button>
+				<Button Grid.Column="2" Style="{StaticResource btnStyle}" Command="{Binding DeleteCommand}">Delete</Button>
+				<Button Grid.Column="3" Style="{StaticResource btnStyle}" Command="{Binding SaveCommand}">Save</Button>
+				<Button Grid.Column="4" Style="{StaticResource btnStyle}" Command="{Binding CloseCommand}">Close</Button>
 			</Grid>
 		</StackPanel>
 	</ControlTemplate>
@@ -40,5 +40,13 @@
 		<Setter Property="Margin" Value="4,0,0,0"></Setter>
 		<Setter Property="Height" Value="22"></Setter>
 	</Style>
+	
+	<ControlTemplate x:Key="tbError">
+		<StackPanel>
+			<!-- Placeholder for the TextBox itself -->
+			<AdornedElementPlaceholder x:Name="textBox"/>
+			<TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+		</StackPanel>
+	</ControlTemplate>
 
 </ResourceDictionary>

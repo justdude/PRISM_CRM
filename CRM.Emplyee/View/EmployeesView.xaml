@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:validation="clr-namespace:CRM.Common.Validation;assembly=CRM.Common"
+			 xmlns:common="clr-namespace:CRM.Common;assembly=CRM.Common"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="500">
 	<UserControl.Resources>
@@ -30,7 +32,7 @@
 				 Margin="4"
 				 BorderBrush="Blue"
 				 BorderThickness="1">
-			<ListBox DataContext="{Binding Employers}"></ListBox>
+			<ListBox DataContext="{Binding Employers}" SelectedItem="{Binding SelectedItem}"></ListBox>
 		</Border>
 
 		<Grid  Grid.Row="0"
@@ -63,24 +65,53 @@
 						Text="Country"></TextBlock>
 
 			<TextBox  Grid.Row="0" Grid.Column="1"
-						IsEnabled="{Binding IsBlocked}"
+						IsEnabled="{Binding IsEnabled}"
 						Style="{StaticResource baseStyle}"
-						Text="{Binding Name}"/>
+						common:ValidationBehavior.HasError="{Binding IsHasError}"
+						Validation.ErrorTemplate="{StaticResource tbError}">
+				<TextBox.Text>
+					<Binding Path="SelectedItem.Name" UpdateSourceTrigger="PropertyChanged">
+						<Binding.ValidationRules>
+							<validation:NameRule ValidationStep="RawProposedValue"/>
+						</Binding.ValidationRules>
+					</Binding>
+				</TextBox.Text>
+			</TextBox>
 
 			<DatePicker  Grid.Row="1" Grid.Column="1" 
-						IsEnabled="{Binding IsBlocked}"
-						Style="{StaticResource baseStyle}"
-						Text="{Binding Salary}"/>
+						IsEnabled="{Binding IsEnabled}"
+						 common:ValidationBehavior.HasError="{Binding IsHasError}"
+						Style="{StaticResource baseStyle}">
+				<DatePicker.SelectedDate>
+					<Binding Path="SelectedItem.BirthDate" UpdateSourceTrigger="PropertyChanged">
+							<Binding.ValidationRules>
+								<validation:DateRule ValidationStep="RawProposedValue"/>
+							</Binding.ValidationRules>
+						</Binding>
+				</DatePicker.SelectedDate>
+			</DatePicker>
 
 			<TextBox  Grid.Row="2" Grid.Column="1" 
-						IsEnabled="{Binding IsBlocked}"
-						Style="{StaticResource baseStyle}"
-						Text="{Binding Salary}"/>
+						IsEnabled="{Binding IsEnabled}"
+							common:ValidationBehavior.HasError="{Binding IsHasError}"
+						Style="{StaticResource baseStyle}">
+				<TextBox.Text>
+					<Binding Path="SelectedItem.Salary" UpdateSourceTrigger="PropertyChanged">
+						<Binding.ValidationRules>
+							<validation:FloatRule ValidationStep="RawProposedValue"/>
+						</Binding.ValidationRules>
+					</Binding>
+				</TextBox.Text>
+			</TextBox>
 
 			<ComboBox  Grid.Row="3" Grid.Column="1" 
-						IsEnabled="{Binding IsBlocked}"
+						IsEnabled="{Binding IsEnabled}"
 						Style="{StaticResource baseStyle}"
-						Text="{Binding Countryes}"/>
+						 common:ValidationBehavior.HasError="{Binding IsHasError}"
+					    ItemsSource="{Binding Countryes}"
+						Text="{Binding SelectedItem.Country}" IsReadOnly="True">
+				
+			</ComboBox>
 
 		</Grid>
 
@@ -88,6 +119,7 @@
 				Background="Blue" MinWidth="100" Height="1" BorderThickness="1" HorizontalAlignment="Center"></Border>
 
 		<ContentControl Grid.Row="4" Grid.Column="1"
+						DataContext="{Binding}"
 						Template="{StaticResource tmplButtonsContent}"></ContentControl>
 	</Grid>
 </UserControl>

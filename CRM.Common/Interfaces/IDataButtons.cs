@@ -9,10 +9,10 @@ namespace CRM.Common.Interfaces
 {
 	public interface IDataButtons
 	{
-		DelegateCommand AddCommand { get; set; }
-		DelegateCommand DeleteCommand { get; set; }
-		DelegateCommand SaveCommand { get; set; }
-		DelegateCommand RefreshCommand { get; set; }
-		DelegateCommand CloseCommand { get; set; }
+		DelegateCommand AddCommand { get;}
+		DelegateCommand DeleteCommand { get;}
+		DelegateCommand SaveCommand { get;}
+		DelegateCommand RefreshCommand { get;}
+		DelegateCommand CloseCommand { get;}
 	}
 }
