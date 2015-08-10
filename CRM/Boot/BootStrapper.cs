@@ -37,6 +37,7 @@ namespace CRM.Boot
 		protected override void InitializeModules()
 		{
 			ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
+			
 			moduleCatalog.AddModule(typeof(ModuleEmplyee.EmployeeModule));
 			moduleCatalog.AddModule(typeof(ModuleSelectEntryType.ModuleSelectEntryType));
 

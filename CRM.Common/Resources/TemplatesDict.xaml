@@ -1,20 +1,44 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-	<DataTemplate x:Key="tmlButtonsContent" DataType="{x:Type ContentPresenter}">
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="30"></ColumnDefinition>
-				<ColumnDefinition Width="30"></ColumnDefinition>
-				<ColumnDefinition Width="30"></ColumnDefinition>
-				<ColumnDefinition Width="30"></ColumnDefinition>
-			</Grid.ColumnDefinitions>
-			<Button>Refresh</Button>
-			<Button>New</Button>
-			<Button>Delete</Button>
-			<Button>Save</Button>
-			<Button>Close</Button>
-		</Grid>
-	</DataTemplate>
 	
+	<Style x:Key="btnStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+		<Setter Property="VerticalAlignment" Value="Center"></Setter>
+		<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+		<Setter Property="Margin" Value="4,0,0,0"></Setter>
+		<Setter Property="Height" Value="22"></Setter>
+		<Setter Property="Width" Value="38"></Setter>
+	</Style>
+	
+	<ControlTemplate x:Key="tmplButtonsContent" TargetType="{x:Type ContentControl}">
+		<StackPanel>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Button Grid.Column="0" Style="{StaticResource btnStyle}" Command="{Binding Refresh}">Refresh</Button>
+				<Button Grid.Column="1" Style="{StaticResource btnStyle}" Command="{Binding New}">New</Button>
+				<Button Grid.Column="2" Style="{StaticResource btnStyle}" Command="{Binding Delete}">Delete</Button>
+				<Button Grid.Column="3" Style="{StaticResource btnStyle}" Command="{Binding Save}">Save</Button>
+				<Button Grid.Column="4" Style="{StaticResource btnStyle}" Command="{Binding Close}">Close</Button>
+			</Grid>
+		</StackPanel>
+	</ControlTemplate>
+
+	<Style x:Key="txtblStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+		<Setter Property="VerticalAlignment" Value="Center"></Setter>
+		<Setter Property="Margin" Value="2,0,0,0"></Setter>
+	</Style>
+
+	<Style x:Key="baseStyle" TargetType="{x:Type FrameworkElement}">
+		<Setter Property="VerticalAlignment" Value="Center"></Setter>
+		<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+		<Setter Property="Margin" Value="4,0,0,0"></Setter>
+		<Setter Property="Height" Value="22"></Setter>
+	</Style>
+
 </ResourceDictionary>

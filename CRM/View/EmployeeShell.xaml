@@ -2,13 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:prism="http://www.codeplex.com/prism"
-        Title="Employers" Height="300" Width="300">
+        Title="Employers" Height="350" Width="525">
 	<Grid x:Name="LayoutRoot" >
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"></RowDefinition>
 			<RowDefinition Height="22"></RowDefinition>
 		</Grid.RowDefinitions>
-		<ContentControl Grid.Row="1"
+		<ContentControl Grid.Row="0"
 						prism:RegionManager.RegionName="EmployeeModule"></ContentControl>
 		<StatusBar Grid.Row="1">
 			<StatusBarItem>

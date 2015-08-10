@@ -134,6 +134,20 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CRM.Common\CRM.Common.csproj">
+      <Project>{96d68cd1-c389-468e-a68d-34a428aae9d8}</Project>
+      <Name>CRM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CRM.Database\CRM.Database.csproj">
+      <Project>{89be3756-e0f0-48bd-aaba-ddd64484267c}</Project>
+      <Name>CRM.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CRM.Data\CRM.Data.csproj">
+      <Project>{d33bb5d9-c28c-48bc-b0ed-509639141a02}</Project>
+      <Name>CRM.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

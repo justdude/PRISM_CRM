@@ -23,7 +23,7 @@ namespace CRM.ModuleEmplyee
 
 		public void Initialize()
 		{
-			//modRegionManager.Regions[ModuleName].Add(new View.EmployeeView());
+			this.modRegionManager.RegisterViewWithRegion(ModuleName, typeof(View.EmployeeView));
 			//_regionManager.Regions["RoleSelection"].Add(new ModuleRoleSelection.View.RoleSelectionView(eventagg));
 		}
 
