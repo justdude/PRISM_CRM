@@ -47,14 +47,14 @@ namespace CRM.ModuleEmplyee.ViewModel
 			}
 			if (Employers == null)
 			{
-				Employers = new ObservableCollection<EmployeeViewModel>();
+				Employers = new ObservableCollection<CountryViewModel>();
 			}
 			
 			Employers.Clear();
 			Countries.Clear();
 
 			var countries = new ObservableCollection<Data.Country>(CRM.Data.Engine.Instance.LoadCountries());
-			var employers = Engine.Instance.LoadEmployes().Select(p => new EmployeeViewModel(p));
+			var employers = Engine.Instance.LoadEmployes().Select(p => new CountryViewModel(p));
 
 			foreach (var item in countries)
 			{
@@ -69,10 +69,10 @@ namespace CRM.ModuleEmplyee.ViewModel
 			IsEnabled = true;
 		}
 
-		public ObservableCollection<EmployeeViewModel> Employers { get; set; }
+		public ObservableCollection<CountryViewModel> Employers { get; set; }
 		public ObservableCollection<Data.Country> Countries { get; set; }
 
-		public EmployeeViewModel SelectedItem
+		public CountryViewModel SelectedItem
 		{
 			get
 			{
