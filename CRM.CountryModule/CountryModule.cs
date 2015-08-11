@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 
-namespace CRM.ModuleEmplyee
+namespace CRM.ModuleCountry 
 {
 	public class CountryModule : IModule
 	{
@@ -23,8 +23,7 @@ namespace CRM.ModuleEmplyee
 
 		public void Initialize()
 		{
-			this.modRegionManager.RegisterViewWithRegion(ModuleName, typeof(View.EmployeeView));
-			//_regionManager.Regions["RoleSelection"].Add(new ModuleRoleSelection.View.RoleSelectionView(eventagg));
+			this.modRegionManager.RegisterViewWithRegion(ModuleName, typeof(CRM.CountryModule.View.CountryView));
 		}
 
 		#endregion

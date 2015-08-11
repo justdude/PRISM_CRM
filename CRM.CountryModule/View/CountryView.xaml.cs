@@ -13,22 +13,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CRM.ModuleEmplyee.View
+namespace CRM.CountryModule.View
 {
 	/// <summary>
-	/// Логика взаимодействия для EmployeeView.xaml
+	/// Interaction logic for CountryView.xaml
 	/// </summary>
-	public partial class EmployeeView : UserControl
+	public partial class CountryView : UserControl
 	{
-		public EmployeeView()
+		public CountryView()
 		{
 			InitializeComponent();
-			this.Loaded += EmployeeView_Loaded;
+			Loaded += CountryView_Loaded;
 		}
 
-		void EmployeeView_Loaded(object sender, RoutedEventArgs e)
+		void CountryView_Loaded(object sender, RoutedEventArgs e)
 		{
-			DataContext = new ModuleEmplyee.ViewModel.EmployesItemsViewModel();
+			DataContext = new CRM.ModuleCountry.ViewModel.CountryItemsViewModel();
 		}
 	}
 }

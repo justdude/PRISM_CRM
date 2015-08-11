@@ -1,6 +1,7 @@
-﻿<Window x:Class="CRM.View.EmployeeShell"
+﻿<Controls:MetroWindow  x:Class="CRM.View.EmployeeShell"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		 xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
 		xmlns:prism="http://www.codeplex.com/prism"
         Title="Employers" Height="350" Width="525">
 	<Grid x:Name="LayoutRoot" >
@@ -16,4 +17,4 @@
 			</StatusBarItem>
 		</StatusBar>
 	</Grid>
-</Window>
+</Controls:MetroWindow>

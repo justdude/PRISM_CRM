@@ -11,9 +11,9 @@ using Microsoft.Practices.Prism.ViewModel;
 using CRM.Events;
 using CRM.Data;
 
-namespace CRM.ModuleEmplyee.ViewModel
+namespace CRM.ModuleCountry.ViewModel
 {
-	public class EmployesItemsViewModel : BindableBase, IDataButtons
+	public class CountryItemsViewModel : BindableBase, IDataButtons
 	{
 		private CountryViewModel mvSelectedItem;
 		private readonly DelegateCommand mvAddCommand;
@@ -24,10 +24,8 @@ namespace CRM.ModuleEmplyee.ViewModel
 		private bool mvIsBlocked;
 		private bool mvIsHasError;
 
-		public EmployesItemsViewModel()
+		public CountryItemsViewModel()
 		{
-			Employers = new ObservableCollection<CountryViewModel>();
-
 			mvAddCommand = new DelegateCommand(OnAdd, CanAdd);
 			mvDeleteCommand = new DelegateCommand(OnDeleteSelected, CanDelete);
 			mvSaveCommand = new DelegateCommand(OnSaveSelected, CanSave);
@@ -43,34 +41,22 @@ namespace CRM.ModuleEmplyee.ViewModel
 
 			if (Countries == null)
 			{
-				Countries = new ObservableCollection<Country>();
-			}
-			if (Employers == null)
-			{
-				Employers = new ObservableCollection<CountryViewModel>();
+				Countries = new ObservableCollection<CountryViewModel>();
 			}
 			
-			Employers.Clear();
 			Countries.Clear();
 
-			var countries = new ObservableCollection<Data.Country>(CRM.Data.Engine.Instance.LoadCountries());
-			var employers = Engine.Instance.LoadEmployes().Select(p => new CountryViewModel(p));
+			var countries = Engine.Instance.LoadCountries().Select(p => new CountryViewModel(p));
 
 			foreach (var item in countries)
 			{
 				Countries.Add(item);
 			}
 
-			foreach (var item in employers)
-			{
-				Employers.Add(item);
-			}
-
 			IsEnabled = true;
 		}
 
-		public ObservableCollection<CountryViewModel> Employers { get; set; }
-		public ObservableCollection<Data.Country> Countries { get; set; }
+		public ObservableCollection<CountryViewModel> Countries { get; set; }
 
 		public CountryViewModel SelectedItem
 		{
@@ -216,7 +202,7 @@ namespace CRM.ModuleEmplyee.ViewModel
 
 		private bool CanSave()
 		{
-			return IsEnabled && !IsHasError && IsSelected;
+			return IsEnabled && !IsHasError && IsSelected && !string.IsNullOrWhiteSpace(SelectedItem.Name);
 		}
 
 		private bool CanDelete()
@@ -268,7 +254,7 @@ namespace CRM.ModuleEmplyee.ViewModel
 			SelectedItem.Current.Status = Status.Deleted;
 			SelectedItem.Current.Save();
 
-			this.Employers.Remove(SelectedItem);
+			this.Countries.Remove(SelectedItem);
 			SelectedItem = null;
 
 			RaiseRefresh();
@@ -276,11 +262,11 @@ namespace CRM.ModuleEmplyee.ViewModel
 
 		private void OnAdd()
 		{
-			SelectedItem = new EmployeeViewModel(new Data.Employee());
+			SelectedItem = new CountryViewModel(new Data.Country());
 
 			SelectedItem.Current.Status = Status.Added;
 
-			this.Employers.Add(SelectedItem);
+			this.Countries.Add(SelectedItem);
 
 			RaiseRefresh();
 		}

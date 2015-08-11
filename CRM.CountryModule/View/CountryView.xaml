@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CRM.ModuleEmplyee.View.EmployeeView"
+﻿<UserControl x:Class="CRM.CountryModule.View.CountryView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -32,7 +32,7 @@
 				 Margin="4"
 				 BorderBrush="Blue"
 				 BorderThickness="1">
-			<ListBox ItemsSource="{Binding Employers}" 
+			<ListBox ItemsSource="{Binding Countries}" 
 					 SelectedItem="{Binding SelectedItem}">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
@@ -41,7 +41,7 @@
 						</Grid>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
-				
+
 			</ListBox>
 		</Border>
 
@@ -53,26 +53,13 @@
 			</Grid.ColumnDefinitions>
 
 			<Grid.RowDefinitions>
-				<RowDefinition></RowDefinition>
-				<RowDefinition></RowDefinition>
-				<RowDefinition></RowDefinition>
-				<RowDefinition></RowDefinition>
-				<RowDefinition></RowDefinition>
+				<RowDefinition Height="30"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
 			</Grid.RowDefinitions>
 
 			<TextBlock Grid.Row="0" Grid.Column="0"
 					   Style="{StaticResource txtblStyle}"
 					   Text="Name"></TextBlock>
-			<TextBlock Grid.Row="1" Grid.Column="0"
-					   Style="{StaticResource txtblStyle}"
-					    VerticalAlignment="Center"
-					   Text="Birthdate"></TextBlock>
-			<TextBlock  Grid.Row="2" Grid.Column="0"
-						Style="{StaticResource txtblStyle}"
-						Text="Salary"></TextBlock>
-			<TextBlock  Grid.Row="3" Grid.Column="0"
-						Style="{StaticResource txtblStyle}"
-						Text="Country"></TextBlock>
 
 			<TextBox  Grid.Row="0" Grid.Column="1"
 						IsEnabled="{Binding IsSelected}"
@@ -82,54 +69,17 @@
 				<TextBox.Text>
 					<Binding Path="SelectedItem.Name" UpdateSourceTrigger="PropertyChanged">
 						<Binding.ValidationRules>
-							<validation:NameRule ValidationStep="RawProposedValue"/>
+							<validation:NameEmptyRule ValidationStep="RawProposedValue"/>
 						</Binding.ValidationRules>
 					</Binding>
 				</TextBox.Text>
 			</TextBox>
 
-			<DatePicker  Grid.Row="1" Grid.Column="1" 
-						IsEnabled="{Binding IsSelected}"
-						 common:ValidationBehavior.HasError="{Binding IsHasError}"
-						Style="{StaticResource baseStyle}"
-						Validation.ErrorTemplate="{StaticResource tbError}">
-				<DatePicker.SelectedDate>
-					<Binding Path="SelectedItem.BirthDate" UpdateSourceTrigger="PropertyChanged">
-							<Binding.ValidationRules>
-								<validation:DateRule ValidationStep="RawProposedValue"/>
-							</Binding.ValidationRules>
-						</Binding>
-				</DatePicker.SelectedDate>
-			</DatePicker>
+			<Image Grid.Row="1" 
+				   Height="200" Width="200" 
+				   Source="/CRM.ModuleEmployee;component/Images/BlankMap-World-1ce.png">
+			</Image>
 
-			<TextBox  Grid.Row="2" Grid.Column="1" 
-						IsEnabled="{Binding IsSelected}"
-							common:ValidationBehavior.HasError="{Binding IsHasError}"
-						Validation.ErrorTemplate="{StaticResource tbError}"
-						Style="{StaticResource baseStyle}">
-				<TextBox.Text>
-					<Binding Path="SelectedItem.Salary" UpdateSourceTrigger="PropertyChanged">
-						<Binding.ValidationRules>
-							<validation:FloatRule ValidationStep="RawProposedValue"/>
-						</Binding.ValidationRules>
-					</Binding>
-				</TextBox.Text>
-			</TextBox>
-
-			<ComboBox  Grid.Row="3" Grid.Column="1" 
-						IsEnabled="{Binding IsSelected}"
-						Style="{StaticResource baseStyle}"
-					    ItemsSource="{Binding Countries}"
-						Text="{Binding SelectedItem.Country}" IsReadOnly="True">
-				<ComboBox.ItemTemplate>
-					<DataTemplate>
-						<Grid>
-							<TextBlock Text="{Binding Name}"></TextBlock>
-						</Grid>
-					</DataTemplate>
-				</ComboBox.ItemTemplate>
-				
-			</ComboBox>
 
 		</Grid>
 

@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Validation\DateRule.cs" />
     <Compile Include="Validation\FloatRule.cs" />
+    <Compile Include="Validation\NameEmptyRule.cs" />
     <Compile Include="Validation\NameRule.cs" />
     <Compile Include="ValidationBehavior.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

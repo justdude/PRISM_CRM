@@ -6,35 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.ViewModel;
 
-namespace CRM.ModuleEmplyee.ViewModel
+namespace CRM.ModuleCountry.ViewModel
 {
 	public class CountryViewModel : BindableBase
 	{
 		private bool mvIsChanged;
 		private string mvCountry;
-		public Data.Employee Current { get; private set; }
+		public Data.Country Current { get; private set; }
 
-		public CountryViewModel(Data.Employee current)
+		public CountryViewModel(Data.Country current)
 		{
 			Current = current;
-			Country = "Ukraine";
-		}
-
-		public string Country
-		{
-			get
-			{
-				return mvCountry;
-			}
-			set
-			{
-				if (mvCountry == value)
-					return;
-
-				mvCountry = value;
-
-				this.OnPropertyChanged(() => this.Country);
-			}
 		}
 
 		public bool IsChanged
@@ -72,49 +54,10 @@ namespace CRM.ModuleEmplyee.ViewModel
 			}
 		}
 
-		public DateTime BirthDate
-		{
-			get
-			{
-				return Current.BirthDate;
-			}
-			set
-			{
-				if (Current.BirthDate == value)
-					return;
-
-				Current.BirthDate = value;
-				IsChanged = true;
-
-				this.OnPropertyChanged(() => this.BirthDate);
-			}
-		}
-
-		public float Salary
-		{
-			get
-			{
-				return Current.Salary;
-			}
-			set
-			{
-				if (Current.Salary == value)
-					return;
-
-				Current.Salary = value;
-				IsChanged = true;
-
-				this.OnPropertyChanged(() => this.Salary);
-			}
-		}
-
 		public void RaisePropertyesChanged()
 		{
-			this.OnPropertyChanged(() => this.Country);
 			this.OnPropertyChanged(() => this.Name);
 			this.OnPropertyChanged(() => this.IsChanged);
-			this.OnPropertyChanged(() => this.BirthDate);
-			this.OnPropertyChanged(() => this.Salary);
 		}
 	}
 }

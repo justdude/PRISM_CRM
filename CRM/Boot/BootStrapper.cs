@@ -37,8 +37,9 @@ namespace CRM.Boot
 		protected override void InitializeModules()
 		{
 			ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-			
+
 			moduleCatalog.AddModule(typeof(ModuleEmplyee.EmployeeModule));
+			moduleCatalog.AddModule(typeof(ModuleCountry.CountryModule));
 			moduleCatalog.AddModule(typeof(ModuleSelectEntryType.ModuleSelectEntryType));
 
 			this.Container.RegisterType(typeof(IWindowsHelper), typeof(CWindowsHelper));
