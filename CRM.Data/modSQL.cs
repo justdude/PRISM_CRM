@@ -46,14 +46,14 @@ namespace CRM.Database
 		public static string InsertEmployes(Employee empl)
 		{
 			string query = @"INSERT INTO Employes(Id,EmployeName,BirthDate,Salary,CountryID) VALUES('{0}', '{1}', '{2}', '{3}', '{4}');";
-			return string.Format(query, empl.Id, empl.Name, empl.BirthDate, empl.Salary, empl.CountryID);
+			return string.Format(query, empl.Id, empl.Name, empl.BirthDate.ToShortDateString(), empl.Salary, empl.CountryID);
 		}
 
 		public static string UpdateEmployes(Employee empl)
 		{
 			string query = @"UPDATE Employes SET EmployeName='{0}',BirthDate='{1}',Salary='{2}',CountryID='{3}'" 
 				+ " WHERE Id='{4}';";
-			return string.Format(query, empl.Name, empl.BirthDate, empl.Salary, empl.CountryID, empl.Id);
+			return string.Format(query, empl.Name, empl.BirthDate.ToShortDateString(), empl.Salary, empl.CountryID, empl.Id);
 		}
 
 		public static string DeleteEmployes(string id)

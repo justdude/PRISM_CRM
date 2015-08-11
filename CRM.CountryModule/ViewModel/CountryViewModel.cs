@@ -59,5 +59,13 @@ namespace CRM.ModuleCountry.ViewModel
 			this.OnPropertyChanged(() => this.Name);
 			this.OnPropertyChanged(() => this.IsChanged);
 		}
+
+		public override bool Equals(object obj) 
+		{ 
+			if (obj == null || !(obj is CountryViewModel)) 
+				return false; 
+  
+			return (((CountryViewModel)obj).Current.Id == this.Current.Id); 
+		}
 	}
 }

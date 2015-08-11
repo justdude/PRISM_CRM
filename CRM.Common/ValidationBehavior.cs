@@ -17,12 +17,17 @@ namespace CRM.Common
 			"HasError",
 			typeof(bool),
 			typeof(ValidationBehavior),
-			new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null, CoerceHasError));
+			new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null, CoerceHasError, true, UpdateSourceTrigger.PropertyChanged));
 
 		private static readonly DependencyProperty HasErrorDescriptorProperty = DependencyProperty.RegisterAttached(
 			"HasErrorDescriptor",
 			typeof(DependencyPropertyDescriptor),
-			typeof(ValidationBehavior));
+			typeof(ValidationBehavior), 
+			new FrameworkPropertyMetadata(OnDesrChanged));
+
+		private static void OnDesrChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+		}
 
 		#endregion
 
@@ -76,6 +81,9 @@ namespace CRM.Common
 			}
 			return result;
 		}
+
+		private static Dictionary<object, bool> modErrors = new Dictionary<object, bool>();
+
 		private static void OnHasErrorChanged(object sender, EventArgs e)
 		{
 			var d = sender as DependencyObject;

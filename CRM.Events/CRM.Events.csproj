@@ -78,7 +78,11 @@
   <ItemGroup>
     <Compile Include="CEventsListener.cs" />
     <Compile Include="Events\CloseWindowEvent.cs" />
+    <Compile Include="Events\ComboChangeEvent.cs" />
+    <Compile Include="Events\ItemChangedEvent.cs" />
     <Compile Include="Events\MessageBase.cs" />
+    <Compile Include="Events\StateChangedEvent.cs" />
+    <Compile Include="Events\ValidationInfoEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Token.cs" />
   </ItemGroup>

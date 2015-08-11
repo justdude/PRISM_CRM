@@ -5,37 +5,41 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.ViewModel;
+using CRM.Events.Events;
+using Microsoft.Practices.Prism.PubSubEvents;
+using System.ComponentModel;
 
 namespace CRM.ModuleEmplyee.ViewModel
 {
-	public class EmployeeViewModel : BindableBase
+	public class EmployeeViewModel : BindableBase, IDataErrorInfo
 	{
 		private bool mvIsChanged;
 		private string mvCountry;
+		private IEventAggregator modEventAgrgator;
 		public Data.Employee Current { get; private set; }
 
-		public EmployeeViewModel(Data.Employee current)
+		public EmployeeViewModel(Data.Employee current, IEventAggregator eventAgrgator)
 		{
 			Current = current;
-			Country = "Ukraine";
+			modEventAgrgator = eventAgrgator;
 		}
 
-		public string Country
-		{
-			get
-			{
-				return mvCountry;
-			}
-			set
-			{
-				if (mvCountry == value)
-					return;
+		//public string Country
+		//{
+		//	get
+		//	{
+		//		return mvCountry;
+		//	}
+		//	set
+		//	{
+		//		if (mvCountry == value)
+		//			return;
 
-				mvCountry = value;
+		//		mvCountry = value;
 
-				this.OnPropertyChanged(() => this.Country);
-			}
-		}
+		//		this.OnPropertyChanged(() => this.Country);
+		//	}
+		//}
 
 		public bool IsChanged
 		{
@@ -45,8 +49,10 @@ namespace CRM.ModuleEmplyee.ViewModel
 			}
 			set
 			{
-				if (mvIsChanged == value)
-					return;
+				modEventAgrgator.GetEvent<ItemChangedEvent>().Publish(this);
+				//modEventAgrgator.GetEvent<ValidationInfoEvent>().Publish(new ValidationInfoEvent(OnStateChange));
+				//if (mvIsChanged == value)
+				//	return;
 
 				mvIsChanged = value;
 
@@ -98,8 +104,6 @@ namespace CRM.ModuleEmplyee.ViewModel
 			}
 			set
 			{
-				if (Current.Salary == value)
-					return;
 
 				Current.Salary = value;
 				IsChanged = true;
@@ -110,11 +114,42 @@ namespace CRM.ModuleEmplyee.ViewModel
 
 		public void RaisePropertyesChanged()
 		{
-			this.OnPropertyChanged(() => this.Country);
 			this.OnPropertyChanged(() => this.Name);
 			this.OnPropertyChanged(() => this.IsChanged);
 			this.OnPropertyChanged(() => this.BirthDate);
 			this.OnPropertyChanged(() => this.Salary);
 		}
+		#region Errors
+
+		public string Error
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string this[string columnName]
+		{
+			get 
+			{
+				string error = null;
+
+ 				if (columnName == "Name")
+				{
+					if (string.IsNullOrWhiteSpace(Name) || Name.Length <= 10)
+						return "Must be more than 10 symbols";
+				}
+
+				if (columnName == "BirthDate")
+				{
+					if (CRM.Common.Validation.DateRule.IsValid(BirthDate, out error))
+					{
+
+					}
+				}
+
+				return error;
+			}
+		}
+
+		#endregion
 	}
 }

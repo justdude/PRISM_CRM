@@ -111,9 +111,6 @@ namespace CRM.ModuleCountry.ViewModel
 			}
 			set
 			{
-				if (mvIsHasError == value)
-					return;
-
 				mvIsHasError = value;
 
 				RefreshCommands();

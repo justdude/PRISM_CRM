@@ -10,12 +10,19 @@ using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.ViewModel;
 using CRM.Events;
 using CRM.Data;
+using Microsoft.Practices.Prism.PubSubEvents;
+using CRM.ModuleCountry.ViewModel;
+using CRM.Events.Events;
 
 namespace CRM.ModuleEmplyee.ViewModel
 {
 	public class EmployesItemsViewModel : BindableBase, IDataButtons
 	{
+		private readonly IEventAggregator eventAggregator;
+
 		private EmployeeViewModel mvSelectedItem;
+		private CountryViewModel mvSelectedCountry;
+
 		private readonly DelegateCommand mvAddCommand;
 		private readonly DelegateCommand mvDeleteCommand;
 		private readonly DelegateCommand mvSaveCommand;
@@ -24,8 +31,9 @@ namespace CRM.ModuleEmplyee.ViewModel
 		private bool mvIsBlocked;
 		private bool mvIsHasError;
 
-		public EmployesItemsViewModel()
+		public EmployesItemsViewModel(IEventAggregator eventAgg)
 		{
+			eventAggregator = eventAgg;
 			Employers = new ObservableCollection<EmployeeViewModel>();
 
 			mvAddCommand = new DelegateCommand(OnAdd, CanAdd);
@@ -33,44 +41,33 @@ namespace CRM.ModuleEmplyee.ViewModel
 			mvSaveCommand = new DelegateCommand(OnSaveSelected, CanSave);
 			mvRefreshCommand = new DelegateCommand(OnRefresh, CanRefresh);
 			mvCloseCommand = new DelegateCommand(OnClose);
-
+			eventAggregator.GetEvent<StateChangedEvent>().Subscribe(OnDataChanged);
+			eventAggregator.GetEvent<ItemChangedEvent>().Subscribe(OnSelectedChanged, ThreadOption.PublisherThread, true, Filter);
 			LoadData();
 		}
 
-		private void LoadData()
-		{
-			IsEnabled = false;
-
-			if (Countries == null)
-			{
-				Countries = new ObservableCollection<Country>();
-			}
-			if (Employers == null)
-			{
-				Employers = new ObservableCollection<EmployeeViewModel>();
-			}
-			
-			Employers.Clear();
-			Countries.Clear();
-
-			var countries = new ObservableCollection<Data.Country>(CRM.Data.Engine.Instance.LoadCountries());
-			var employers = Engine.Instance.LoadEmployes().Select(p => new EmployeeViewModel(p));
-
-			foreach (var item in countries)
-			{
-				Countries.Add(item);
-			}
-
-			foreach (var item in employers)
-			{
-				Employers.Add(item);
-			}
-
-			IsEnabled = true;
-		}
-
 		public ObservableCollection<EmployeeViewModel> Employers { get; set; }
-		public ObservableCollection<Data.Country> Countries { get; set; }
+		public ObservableCollection<CountryViewModel> Countries { get; set; }
+
+		//SelectedCountry
+
+		public CountryViewModel SelectedCountry
+		{
+			get
+			{
+				return mvSelectedCountry;
+			}
+			set
+			{
+				if (mvSelectedCountry == value)
+					return;
+
+				mvSelectedCountry = value;
+				//IsEnabled = mvSelectedItem == null;
+
+				this.OnPropertyChanged(() => this.SelectedCountry);
+			}
+		}
 
 		public EmployeeViewModel SelectedItem
 		{
@@ -87,11 +84,36 @@ namespace CRM.ModuleEmplyee.ViewModel
 				//IsEnabled = mvSelectedItem == null;
 
 				RaiseRefresh();
+				LoadCountry(mvSelectedItem);
 
 				this.OnPropertyChanged(() => this.SelectedItem);
 			}
 		}
 
+		public string SelectedItemName
+		{
+			get
+			{
+				if (IsSelected == false)
+					return string.Empty;
+
+				return SelectedItem.Name;
+			}
+			set
+			{
+				if (!IsSelected || SelectedItem.Name == value)
+					return;
+
+				SelectedItem.Name = value;
+
+				RaiseRefresh();
+
+				this.OnPropertyChanged(() => this.SelectedItemName);
+			}
+		}
+
+
+	
 		public bool IsEnabled
 		{
 			get
@@ -200,6 +222,78 @@ namespace CRM.ModuleEmplyee.ViewModel
 
 		#region Methods
 
+		private void LoadData()
+		{
+			IsEnabled = false;
+
+			if (Countries == null)
+			{
+				Countries = new ObservableCollection<CountryViewModel>();
+			}
+			if (Employers == null)
+			{
+				Employers = new ObservableCollection<EmployeeViewModel>();
+			}
+
+			Employers.Clear();
+			Countries.Clear();
+
+			var countries = Engine.Instance.LoadCountries().Select(p => new CountryViewModel(p));
+			var employers = Engine.Instance.LoadEmployes().Select(p => new EmployeeViewModel(p, eventAggregator));
+
+			foreach (var item in countries)
+			{
+				Countries.Add(item);
+			}
+
+			foreach (var item in employers)
+			{
+				Employers.Add(item);
+			}
+
+			IsEnabled = true;
+		}
+
+		private void LoadCountry(EmployeeViewModel target)
+		{
+			if (target == null)
+			{
+				SelectedCountry = null;
+				return;
+			}
+			else
+			{
+				var country = Countries.FirstOrDefault(p => p.Current.Id == target.Current.CountryID);
+				if (country != null)
+				{
+					SelectedCountry = country;
+					eventAggregator.GetEvent<ComboChangeEvent>().Publish(SelectedCountry);
+				}
+			}
+
+		}
+
+		private void OnDataChanged(object obj)
+		{
+			//EmployesItemsViewModel vm = obj as EmployesItemsViewModel;
+			//if (vm != null && vm == this)
+			//{
+			//	this.OnPropertyChanged(() => IsHasError);
+			//	RefreshCommands();
+			//}
+		}
+
+		private void OnSelectedChanged(object obj)
+		{
+			RefreshCommands();
+		}
+
+		private bool Filter(object obj)
+		{
+			EmployeeViewModel empl = obj as EmployeeViewModel;
+			return empl != null && Employers.Contains(empl);
+		}
+
 		private void RefreshCommands()
 		{
 			RefreshCommand.RaiseCanExecuteChanged();
@@ -234,6 +328,11 @@ namespace CRM.ModuleEmplyee.ViewModel
 			var mess = CEventSystem.Current.GetEvent<Events.CloseWindowEvent>();
 		}
 
+		public void OnStateChanged()
+		{
+			RaiseRefresh();
+		}
+
 		private void OnRefresh()
 		{
 			SelectedItem = null;
@@ -257,6 +356,7 @@ namespace CRM.ModuleEmplyee.ViewModel
 				SelectedItem.Current.Status = Status.Updated;
 			}
 
+			SelectedItem.Current.CountryID = SelectedCountry.Current.Id;
 			SelectedItem.Current.Save();
 			SelectedItem = null;
 
@@ -276,7 +376,7 @@ namespace CRM.ModuleEmplyee.ViewModel
 
 		private void OnAdd()
 		{
-			SelectedItem = new EmployeeViewModel(new Data.Employee());
+			SelectedItem = new EmployeeViewModel(new Data.Employee(), eventAggregator);
 
 			SelectedItem.Current.Status = Status.Added;
 

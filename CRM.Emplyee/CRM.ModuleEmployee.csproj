@@ -139,6 +139,10 @@
       <Project>{96d68cd1-c389-468e-a68d-34a428aae9d8}</Project>
       <Name>CRM.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CRM.CountryModule\CRM.CountryModule.csproj">
+      <Project>{304205bc-20c2-4d27-bb60-d90c0a23c0e5}</Project>
+      <Name>CRM.CountryModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CRM.Database\CRM.Database.csproj">
       <Project>{89be3756-e0f0-48bd-aaba-ddd64484267c}</Project>
       <Name>CRM.Database</Name>

@@ -18,7 +18,11 @@ namespace CRM.Helper
 			EmployeeShell wind = new EmployeeShell();
 			wind.Owner = App.Current.MainWindow;
 			wind.Owner.Hide();
-			wind.Closed += (e, a) => wind.Owner.Show();
+			wind.Closed += (e, a) =>
+			{
+				wind.Owner.Show();
+				wind.Activate();
+			};
 			wind.ShowDialog();
 		}
 
@@ -27,7 +31,11 @@ namespace CRM.Helper
 			CountryShell wind = new CountryShell();
 			wind.Owner = App.Current.MainWindow;
 			wind.Owner.Hide();
-			wind.Closed += (e, a) => wind.Owner.Show();
+			wind.Closed += (e, a) =>
+			{
+				wind.Owner.Show();
+				wind.Activate();
+			};
 			wind.ShowDialog();
 		}
 

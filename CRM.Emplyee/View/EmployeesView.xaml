@@ -77,57 +77,48 @@
 			<TextBox  Grid.Row="0" Grid.Column="1"
 						IsEnabled="{Binding IsSelected}"
 						Style="{StaticResource baseStyle}"
+						Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
 						common:ValidationBehavior.HasError="{Binding IsHasError}"
 						Validation.ErrorTemplate="{StaticResource tbError}">
-				<TextBox.Text>
+				<!--<TextBox.Text>
 					<Binding Path="SelectedItem.Name" UpdateSourceTrigger="PropertyChanged">
 						<Binding.ValidationRules>
 							<validation:NameRule ValidationStep="RawProposedValue"/>
 						</Binding.ValidationRules>
 					</Binding>
-				</TextBox.Text>
+				</TextBox.Text>-->
 			</TextBox>
 
 			<DatePicker  Grid.Row="1" Grid.Column="1" 
+						Name="dpBorn"
 						IsEnabled="{Binding IsSelected}"
+						SelectedDate="{Binding SelectedItem.BirthDate, UpdateSourceTrigger=Default, ValidatesOnDataErrors=True}"
 						 common:ValidationBehavior.HasError="{Binding IsHasError}"
 						Style="{StaticResource baseStyle}"
 						Validation.ErrorTemplate="{StaticResource tbError}">
-				<DatePicker.SelectedDate>
-					<Binding Path="SelectedItem.BirthDate" UpdateSourceTrigger="PropertyChanged">
+				<!--<DatePicker.SelectedDate>
+					<Binding Path="SelectedItem.BirthDate" UpdateSourceTrigger="Default">
 							<Binding.ValidationRules>
-								<validation:DateRule ValidationStep="RawProposedValue"/>
+							<validation:DateRule ValidationStep="RawProposedValue"/>
 							</Binding.ValidationRules>
 						</Binding>
-				</DatePicker.SelectedDate>
+				</DatePicker.SelectedDate>-->
 			</DatePicker>
 
 			<TextBox  Grid.Row="2" Grid.Column="1" 
 						IsEnabled="{Binding IsSelected}"
-							common:ValidationBehavior.HasError="{Binding IsHasError}"
-						Validation.ErrorTemplate="{StaticResource tbError}"
+						Text="{Binding SelectedItem.Salary, UpdateSourceTrigger=PropertyChanged, StringFormat=C}"
 						Style="{StaticResource baseStyle}">
-				<TextBox.Text>
-					<Binding Path="SelectedItem.Salary" UpdateSourceTrigger="PropertyChanged">
-						<Binding.ValidationRules>
-							<validation:FloatRule ValidationStep="RawProposedValue"/>
-						</Binding.ValidationRules>
-					</Binding>
-				</TextBox.Text>
 			</TextBox>
 
 			<ComboBox  Grid.Row="3" Grid.Column="1" 
+					    Name="cmbCountryes"
+					    Height="30"
 						IsEnabled="{Binding IsSelected}"
-						Style="{StaticResource baseStyle}"
 					    ItemsSource="{Binding Countries}"
-						Text="{Binding SelectedItem.Country}" IsReadOnly="True">
-				<ComboBox.ItemTemplate>
-					<DataTemplate>
-						<Grid>
-							<TextBlock Text="{Binding Name}"></TextBlock>
-						</Grid>
-					</DataTemplate>
-				</ComboBox.ItemTemplate>
+					    DisplayMemberPath="Name" 
+						SelectedItem="{Binding SelectedCountry,Mode=TwoWay}"
+					 IsReadOnly="True">
 				
 			</ComboBox>
 

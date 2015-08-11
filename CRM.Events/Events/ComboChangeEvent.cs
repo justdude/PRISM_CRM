@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CRM.Events.Events
 {
-	public class MessageBase : PubSubEvent<object> 
+	public class ComboChangeEvent : PubSubEvent<object> 
 	{
-		//public Action<object> Event { get; set; }
+		public object SelectedItem { get; set; }
 	}
 }
