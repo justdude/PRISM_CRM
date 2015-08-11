@@ -104,6 +104,9 @@
     <Compile Include="Boot\App.cs" />
     <Compile Include="Boot\BootStrapper.cs" />
     <Compile Include="Helper\CWindowsHelper.cs" />
+    <Compile Include="View\CountryShell.xaml.cs">
+      <DependentUpon>CountryShell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EmployeeShell.xaml.cs">
       <DependentUpon>EmployeeShell.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\CountryShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EmployeeShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

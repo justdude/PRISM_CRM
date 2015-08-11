@@ -24,7 +24,11 @@ namespace CRM.Helper
 
 		public void ShowCountryWindow()
 		{
-			throw new NotImplementedException();
+			CountryShell wind = new CountryShell();
+			wind.Owner = App.Current.MainWindow;
+			wind.Owner.Hide();
+			wind.ShowDialog();
+			wind.Owner.Show();
 		}
 
 		public void CloseApp()
