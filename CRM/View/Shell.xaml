@@ -20,7 +20,7 @@
 			<RowDefinition Height="*"></RowDefinition>
 			<RowDefinition Height="22"></RowDefinition>
 		</Grid.RowDefinitions>
-		<ContentControl Grid.Row="0"
+		<ContentControl Margin="4" Grid.Row="0"
 						prism:RegionManager.RegionName="SelectEntryType"></ContentControl>
 		<StatusBar Grid.Row="1">
 			<StatusBarItem>

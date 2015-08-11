@@ -23,6 +23,7 @@ namespace CRM
 	{
 		public Shell()
 		{
+			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			InitializeComponent();
 		}
 	}

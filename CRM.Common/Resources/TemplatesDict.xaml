@@ -7,25 +7,15 @@
 		<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
 		<Setter Property="Margin" Value="4,0,0,0"></Setter>
 		<Setter Property="Height" Value="22"></Setter>
-		<Setter Property="Width" Value="38"></Setter>
+		<Setter Property="Width" Value="60"></Setter>
 	</Style>
 	
 	<ControlTemplate x:Key="tmplButtonsContent" TargetType="{x:Type ContentControl}">
-		<StackPanel>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-				<Button Grid.Column="0" Style="{StaticResource btnStyle}" Command="{Binding RefreshCommand}">Refresh</Button>
-				<Button Grid.Column="1" Style="{StaticResource btnStyle}" Command="{Binding AddCommand}">New</Button>
-				<Button Grid.Column="2" Style="{StaticResource btnStyle}" Command="{Binding DeleteCommand}">Delete</Button>
-				<Button Grid.Column="3" Style="{StaticResource btnStyle}" Command="{Binding SaveCommand}">Save</Button>
-				<Button Grid.Column="4" Style="{StaticResource btnStyle}" Command="{Binding CloseCommand}">Close</Button>
-			</Grid>
+		<StackPanel Orientation="Horizontal">
+				<Button Style="{StaticResource btnStyle}" Command="{Binding RefreshCommand}">Refresh</Button>
+				<Button Style="{StaticResource btnStyle}" Command="{Binding AddCommand}">New</Button>
+				<Button Style="{StaticResource btnStyle}" Command="{Binding DeleteCommand}">Delete</Button>
+				<Button Style="{StaticResource btnStyle}" Command="{Binding SaveCommand}">Save</Button>
 		</StackPanel>
 	</ControlTemplate>
 
@@ -38,7 +28,7 @@
 		<Setter Property="VerticalAlignment" Value="Center"></Setter>
 		<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
 		<Setter Property="Margin" Value="4,0,0,0"></Setter>
-		<Setter Property="Height" Value="22"></Setter>
+		<Setter Property="Height" Value="26"></Setter>
 	</Style>
 	
 	<ControlTemplate x:Key="tbError">

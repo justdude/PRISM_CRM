@@ -22,6 +22,7 @@ namespace CRM.View
 	{
 		public CountryShell()
 		{
+			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			InitializeComponent();
 		}
 	}

@@ -12,7 +12,14 @@
 	</UserControl.Resources>
     <Grid>
 		
-		<GroupBox Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="auto"></RowDefinition>
+		</Grid.RowDefinitions>
+		
+		<GroupBox Grid.Row="0" 
+				  HorizontalAlignment="Stretch" 
+				  VerticalAlignment="Stretch">
 			<StackPanel>
 				<RadioButton 
 					IsChecked="{Binding SelectedType, Converter={StaticResource enConverter}, ConverterParameter={x:Static enumer:ListTarget.Employers}}">Employers</RadioButton>
@@ -23,12 +30,15 @@
 
 		<StackPanel Grid.Row="1" 
 					Orientation="Horizontal"
-					HorizontalAlignment="Right" VerticalAlignment="Bottom">
+					Margin="0 0 4 0"
+					HorizontalAlignment="Right" VerticalAlignment="Center">
 			<Button
-				Width="36"
+				Width="60"
+				Margin="0 0 4 0"
 				Command="{Binding SelectActionCommand}">Select</Button>
 			<Button
-				Width="36"
+				Width="60"
+				Margin="0 0 4 0"
 				Command="{Binding ExitCommand}">Exit</Button>
 		</StackPanel>
 		

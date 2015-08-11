@@ -9,7 +9,7 @@
 			<RowDefinition Height="*"></RowDefinition>
 			<RowDefinition Height="22"></RowDefinition>
 		</Grid.RowDefinitions>
-		<ContentControl Grid.Row="0"
+		<ContentControl Grid.Row="0" Margin="4"
 						prism:RegionManager.RegionName="EmployeeModule"></ContentControl>
 		<StatusBar Grid.Row="1">
 			<StatusBarItem>

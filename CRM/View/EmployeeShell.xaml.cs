@@ -22,6 +22,7 @@ namespace CRM.View
 	{
 		public EmployeeShell()
 		{
+			WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			InitializeComponent();
 		}
 	}
