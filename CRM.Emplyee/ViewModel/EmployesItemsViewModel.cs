@@ -49,8 +49,6 @@ namespace CRM.ModuleEmplyee.ViewModel
 		public ObservableCollection<EmployeeViewModel> Employers { get; set; }
 		public ObservableCollection<CountryViewModel> Countries { get; set; }
 
-		//SelectedCountry
-
 		public CountryViewModel SelectedCountry
 		{
 			get
@@ -63,7 +61,6 @@ namespace CRM.ModuleEmplyee.ViewModel
 					return;
 
 				mvSelectedCountry = value;
-				//IsEnabled = mvSelectedItem == null;
 
 				this.OnPropertyChanged(() => this.SelectedCountry);
 			}
@@ -81,7 +78,6 @@ namespace CRM.ModuleEmplyee.ViewModel
 					return;
 
 				mvSelectedItem = value;
-				//IsEnabled = mvSelectedItem == null;
 
 				RaiseRefresh();
 				LoadCountry(mvSelectedItem);
@@ -112,8 +108,6 @@ namespace CRM.ModuleEmplyee.ViewModel
 			}
 		}
 
-
-	
 		public bool IsEnabled
 		{
 			get
@@ -238,7 +232,7 @@ namespace CRM.ModuleEmplyee.ViewModel
 			Employers.Clear();
 			Countries.Clear();
 
-			var countries = Engine.Instance.LoadCountries().Select(p => new CountryViewModel(p));
+			var countries = Engine.Instance.LoadCountries().Select(p => new CountryViewModel(p, eventAggregator));
 			var employers = Engine.Instance.LoadEmployes().Select(p => new EmployeeViewModel(p, eventAggregator));
 
 			foreach (var item in countries)

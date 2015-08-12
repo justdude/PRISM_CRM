@@ -64,22 +64,16 @@
 			<TextBox  Grid.Row="0" Grid.Column="1"
 						IsEnabled="{Binding IsSelected}"
 						Style="{StaticResource baseStyle}"
-						common:ValidationBehavior.HasError="{Binding IsHasError}"
+						Text="{Binding SelectedItem.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
 						Validation.ErrorTemplate="{StaticResource tbError}">
-				<TextBox.Text>
+				<!--<TextBox.Text>
 					<Binding Path="SelectedItem.Name" UpdateSourceTrigger="PropertyChanged">
 						<Binding.ValidationRules>
 							<validation:NameEmptyRule ValidationStep="RawProposedValue"/>
 						</Binding.ValidationRules>
 					</Binding>
-				</TextBox.Text>
+				</TextBox.Text>-->
 			</TextBox>
-
-			<Image Grid.Row="1" 
-				   Height="200" Width="200" 
-				   Source="/CRM.ModuleEmployee;component/Images/BlankMap-World-1ce.png">
-			</Image>
-
 
 		</Grid>
 

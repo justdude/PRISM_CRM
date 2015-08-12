@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Practices.Prism.PubSubEvents;
 
 namespace CRM.CountryModule.View
 {
@@ -20,15 +21,18 @@ namespace CRM.CountryModule.View
 	/// </summary>
 	public partial class CountryView : UserControl
 	{
-		public CountryView()
+		private IEventAggregator cachedEventAgregator;
+
+		public CountryView(IEventAggregator eventagg)
 		{
+			cachedEventAgregator = eventagg;
 			InitializeComponent();
 			Loaded += CountryView_Loaded;
 		}
 
 		void CountryView_Loaded(object sender, RoutedEventArgs e)
 		{
-			DataContext = new CRM.ModuleCountry.ViewModel.CountryItemsViewModel();
+			DataContext = new CRM.ModuleCountry.ViewModel.CountryItemsViewModel(cachedEventAgregator);
 		}
 	}
 }

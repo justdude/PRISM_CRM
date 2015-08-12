@@ -10,6 +10,8 @@ using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.ViewModel;
 using CRM.Events;
 using CRM.Data;
+using Microsoft.Practices.Prism.PubSubEvents;
+using CRM.Events.Events;
 
 namespace CRM.ModuleCountry.ViewModel
 {
@@ -23,9 +25,13 @@ namespace CRM.ModuleCountry.ViewModel
 		private readonly DelegateCommand mvCloseCommand;
 		private bool mvIsBlocked;
 		private bool mvIsHasError;
+		private IEventAggregator modEventAgregator;
 
-		public CountryItemsViewModel()
+		public CountryItemsViewModel(IEventAggregator eventAgregator)
 		{
+			modEventAgregator = eventAgregator;
+			modEventAgregator.GetEvent<ValidationInfoEvent>().Subscribe(OnErrorOccured, ThreadOption.PublisherThread, true, OnFilterErrorOccured); 
+
 			mvAddCommand = new DelegateCommand(OnAdd, CanAdd);
 			mvDeleteCommand = new DelegateCommand(OnDeleteSelected, CanDelete);
 			mvSaveCommand = new DelegateCommand(OnSaveSelected, CanSave);
@@ -46,7 +52,7 @@ namespace CRM.ModuleCountry.ViewModel
 			
 			Countries.Clear();
 
-			var countries = Engine.Instance.LoadCountries().Select(p => new CountryViewModel(p));
+			var countries = Engine.Instance.LoadCountries().Select(p => new CountryViewModel(p, modEventAgregator));
 
 			foreach (var item in countries)
 			{
@@ -54,6 +60,27 @@ namespace CRM.ModuleCountry.ViewModel
 			}
 
 			IsEnabled = true;
+		}
+
+		private void OnErrorOccured(object obj)
+		{
+			CountryViewModel vm = obj as CountryViewModel;
+
+			if (vm == null)
+				return;
+
+			IsHasError = vm.IsHasError;
+			this.RefreshCommands();
+		}
+
+		private bool OnFilterErrorOccured(object obj)
+		{
+			CountryViewModel vm = obj as CountryViewModel;
+
+			if (vm!=null && (Countries.Contains(vm) || SelectedItem.Current.Status == Status.Added))
+				return true;
+
+			return false;
 		}
 
 		public ObservableCollection<CountryViewModel> Countries { get; set; }
@@ -259,13 +286,13 @@ namespace CRM.ModuleCountry.ViewModel
 
 		private void OnAdd()
 		{
-			SelectedItem = new CountryViewModel(new Data.Country());
+			SelectedItem = new CountryViewModel(new Data.Country(), modEventAgregator);
 
 			SelectedItem.Current.Status = Status.Added;
 
 			this.Countries.Add(SelectedItem);
 
-			RaiseRefresh();
+			RefreshCommands();
 		}
 
 		#endregion
